@@ -154,10 +154,8 @@ def create_filters(date=None, start_date=None, end_date=None,
          filters.append(FilterVelocity(operator.ge, float(velocity_min)))
     if velocity_max:
          filters.append(FilterVelocity(operator.le, float(velocity_max)))
-    if  hazardous:
-         filters.append(FilterHazardous(operator.eq, True))
-    if  not hazardous:
-         filters.append(FilterHazardous(operator.eq, False))   
+    if  hazardous is not None:
+         filters.append(FilterHazardous(operator.eq, hazardous))  
     if diameter_min:
          filters.append(FilterDiameter(operator.ge, float(diameter_min)))   
     if diameter_max:
