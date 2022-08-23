@@ -139,7 +139,6 @@ def create_filters(date=None, start_date=None, end_date=None,
     # TODO: Decide how you will represent your filters.
     
     filters = []
-    #print(hazardous)
     if date:
         filters.append(FilterDate(operator.eq, date))
     if start_date:

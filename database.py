@@ -110,7 +110,6 @@ class NEODatabase:
         """
         # TODO: Generate `CloseApproach` objects that match all of the filters.
         for app in self._approaches:
-            #print(type(app.time))
             flag = True
             for f in filters:
                 if not f(app):

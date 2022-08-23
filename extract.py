@@ -31,9 +31,6 @@ def load_neos(neo_csv_path):
     with open(neo_csv_path,'r') as f:
         reader = csv.DictReader(f)
         for line in reader:
-            #for key,value in line.items():
-                #if key in neo_keys:
-                    #neo_details.update({key:value})
                     name = line.get('name')
                     designation = line.get('pdes')
                     diameter = line.get('diameter')
@@ -62,8 +59,6 @@ def load_approaches(cad_json_path):
         json_data = json.load(j)
         for key,value in json_data.items():
             key,value = json_data['fields'],json_data['data']
-            #print(key)
-            #print(value)
         data += value
         fields += key
         for line in data:
