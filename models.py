@@ -3,21 +3,19 @@
 The `NearEarthObject` class represents a near-Earth object. Each has a unique
 primary designation, an optional unique name, an optional diameter, and a flag
 for whether the object is potentially hazardous.
-
 The `CloseApproach` class represents a close approach to Earth by an NEO. Each
 has an approach datetime, a nominal approach distance, and a relative approach
 velocity.
-
 A `NearEarthObject` maintains a collection of its close approaches, and a
-`CloseApproach` maintains a reference to its NEO.
-
+##`CloseApproach` maintains a reference to its NEO.
 The functions that construct these objects use information extracted from the
 data files from NASA, so these objects should be able to handle all of the
 quirks of the data set, such as missing names and unknown diameters.
-
 You'll edit this file in Task 1.
 """
-from helpers import cd_to_datetime, datetime_to_str
+
+
+from helpers import cd_to_datetime,  datetime_to_str
 
 
 class NearEarthObject:
@@ -32,22 +30,15 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
-    def __init__(self,**objname):
+
+    def __init__(self,  **objname):
         """Create a new `NearEarthObject`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-        # TODO: Assign information from the arguments passed to the constructor
-        # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
-        # You should coerce these values to their appropriate data type and
-        # handle any edge cases, such as a empty name being represented by `None`
-        # and a missing diameter being represented by `float('nan')`.
         self.designation = str(objname.get('designation'))
-        self.name = objname.get('name',None)
+        self.name = objname.get('name', None)
         self.hazardous = objname.get('hazardous')
-        #self.diameter = float(objname.get('diameter'))
         if self.hazardous == 'Y':
             self.hazardous = True
         else:
@@ -56,24 +47,18 @@ class NearEarthObject:
             self.diameter = float('nan')
         else:
             self.diameter = float(objname.get('diameter'))
-        if not self.name:              
+        if not self.name:
             self.name = None
-                  
-
         # Create an empty initial collection of linked approaches.
         self.approaches = []
 
     @property
     def fullname(self):
-        
         """Return a representation of the full name of this NEO."""
         if self.name:
             return f"{self.designation} ({self.name})"
         else:
-         return f"{self.designation}"
-        # TODO: Use self.designation and self.name to build a fullname for this object.
-        
-        ##return ''
+            return f"{self.designation}"
 
     def __str__(self):
         """Return `str(self)`."""
@@ -87,8 +72,6 @@ class NearEarthObject:
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
-        #return ('test')
-        #pass
         return f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
 
 
@@ -105,8 +88,7 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
+
     def __init__(self, **info):
         """Create a new `CloseApproach`.
 
@@ -118,7 +100,7 @@ class CloseApproach:
         # The `cd_to_datetime` function will be useful.
         self.designation = str(info.get('des'))
         self.distance = float(info.get('distance'))
-        self.velocity= float(info.get('velocity'))
+        self.velocity = float(info.get('velocity'))
         self.time_st = str(info.get('time'))
         self.time = cd_to_datetime(self.time_st)
 

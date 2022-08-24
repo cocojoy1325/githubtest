@@ -12,6 +12,7 @@ data on NEOs and close approaches extracted by `extract.load_neos` and
 You'll edit this file in Tasks 2 and 3.
 """
 
+
 class NEODatabase:
     """A database of near-Earth objects and their close approaches.
 
@@ -20,6 +21,7 @@ class NEODatabase:
     help fetch NEOs by primary designation or by name and to help speed up
     querying for close approaches that match criteria.
     """
+
     def __init__(self, neos, approaches):
         """Create a new `NEODatabase`.
 
@@ -42,16 +44,10 @@ class NEODatabase:
         self._approaches = approaches
         self.pdes = {x.designation: x for x in self._neos}
         self.name = {x.name: x for x in self._neos}
-
         for approach in self._approaches:
             if approach.designation in self.pdes:
                 approach.neo = self.pdes[approach.designation]
                 approach.neo.approaches.append(approach)
-
-
-        # TODO: What additional auxiliary data structures will be useful?
-
-        # TODO: Link together the NEOs and their close approaches.
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
@@ -66,12 +62,10 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # TODO: Fetch an NEO by its primary designation.
         if designation in self.pdes:
             return self.pdes[designation]
         else:
             return None
-        ###########return None
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
@@ -87,12 +81,10 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # TODO: Fetch an NEO by its name.
         if name in self.name:
             return self.name[name]
         else:
             return None
-        ############return None
 
     def query(self, filters=()):
         """Query close approaches to generate those that match a collection of filters.
@@ -108,7 +100,6 @@ class NEODatabase:
         :param filters: A collection of filters capturing user-specified criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        # TODO: Generate `CloseApproach` objects that match all of the filters.
         for app in self._approaches:
             flag = True
             for f in filters:

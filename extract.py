@@ -14,7 +14,6 @@ You'll edit this file in Task 2.
 """
 import csv
 import json
-
 from models import NearEarthObject, CloseApproach
 
 
@@ -27,20 +26,16 @@ def load_neos(neo_csv_path):
     """ create an empty neoslist for collection """
     neos_list = []
     neo_details = {}
-    # TODO: Load NEO data from the given CSV file.
-    with open(neo_csv_path,'r') as f:
+    with open(neo_csv_path, 'r') as f:
         reader = csv.DictReader(f)
         for line in reader:
-                    name = line.get('name')
-                    designation = line.get('pdes')
-                    diameter = line.get('diameter')
-                    hazardous = line.get('pha')
-                    neo = NearEarthObject(designation = designation, name = name, diameter = diameter, hazardous = hazardous)
-                    neos_list.append(neo)
-                    
-                    
+            name = line.get('name')
+            designation = line.get('pdes')
+            diameter = line.get('diameter')
+            hazardous = line.get('pha')
+            neo = NearEarthObject(designation=designation, name=name, diameter=diameter, hazardous=hazardous)
+            neos_list.append(neo)
     return (neos_list)
-
 
 
 def load_approaches(cad_json_path):
@@ -49,29 +44,25 @@ def load_approaches(cad_json_path):
     :param neo_csv_path: A path to a JSON file containing data about close approaches.
     :return: A collection of `CloseApproach`es.
     """
-    # TODO: Load close approach data from the given JSON file.
-
     data = []
     order_data = {}
     fields = []
     final_cad = []
-    with open(cad_json_path,'r') as j:
+    with open(cad_json_path, 'r') as j:
         json_data = json.load(j)
-        for key,value in json_data.items():
-            key,value = json_data['fields'],json_data['data']
+        for key, value in json_data.items():
+            key, value = json_data['fields'], json_data['data']
         data += value
         fields += key
         for line in data:
-                order_data.update({fields[0]: line[0]})
-                order_data.update({fields[3]: line[3]})
-                order_data.update({fields[4]: line[4]})
-                order_data.update({fields[7]: line[7]})
-                desig = order_data['des']
-                time = order_data['cd']
-                dist = order_data['dist']
-                velocity = order_data['v_rel']
-                temp_cad = CloseApproach(des = desig, time = time, distance = dist, velocity = velocity)
-                final_cad.append(temp_cad) 
-             
-    
+            order_data.update({fields[0]: line[0]})
+            order_data.update({fields[3]: line[3]})
+            order_data.update({fields[4]: line[4]})
+            order_data.update({fields[7]: line[7]})
+            desig = order_data['des']
+            time = order_data['cd']
+            dist = order_data['dist']
+            velocity = order_data['v_rel']
+            temp_cad = CloseApproach(des=desig, time=time, distance=dist, velocity=velocity)
+            final_cad.append(temp_cad)
     return (final_cad)
